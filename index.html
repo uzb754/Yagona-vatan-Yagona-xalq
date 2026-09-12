@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yagona Vatan — Yagona Xalq 🇺🇿</title>
+<meta name="description" content="Yagona Vatan — Yagona Xalq. O‘zbekiston tarixi, qadriyatlari, madaniyati, yoshlari va kelajagi haqida interaktiv loyiha.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#f4f8fb;--surface:#fff;--surface2:#eef5f9;--text:#10283d;--muted:#64798a;
+ --blue:#16a3df;--blue2:#0876b7;--green:#24a95a;--red:#df3048;
+ --gold:#e8b34b;--shadow:0 20px 60px rgba(10,55,85,.12);
+ --radius:25px;--nav:#06263f
+}
+body.dark{
+ --bg:#071722;--surface:#0d2637;--surface2:#102f42;--text:#edf8ff;--muted:#9cb3c2;
+ --shadow:0 20px 60px rgba(0,0,0,.35);--nav:#04131f
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;transition:.3s}
+a{text-decoration:none;color:inherit}
+img{width:100%;display:block;object-fit:cover}
+.container{width:min(1200px,92%);margin:auto}
+section{padding:95px 0;position:relative}
+.kicker{font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--blue2)}
+h2{font-size:clamp(35px,5vw,60px);line-height:1.05;letter-spacing:-2px;margin:8px 0 16px}
+.section-intro{max-width:760px;margin-bottom:42px}
+.section-intro p{color:var(--muted);font-size:18px}
+button{font:inherit;cursor:pointer;border:0}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;width:100%;z-index:999;background:rgba(4,30,48,.78);backdrop-filter:blur(18px);border-bottom:1px solid #ffffff20}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;color:white}
+.logo{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:.5px}
+.flag{width:44px;height:29px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px #0005}
+.flag div{height:33.333%}.flag .f1{background:#18a7e2}.flag .f2{background:white;border-top:2px solid #e3314c;border-bottom:2px solid #e3314c}.flag .f3{background:#25aa5a}
+.links{display:flex;gap:22px;font-size:13px;font-weight:800}
+.links a{opacity:.82}.links a:hover{opacity:1;color:#7bd8ff}
+.nav-actions{display:flex;gap:8px}
+.icon-btn{width:40px;height:40px;border-radius:12px;background:#ffffff16;color:#fff;border:1px solid #ffffff22}
+.menu-btn{display:none}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;color:white;overflow:hidden;background:
+linear-gradient(100deg,rgba(3,25,42,.96),rgba(4,50,76,.72),rgba(4,30,48,.3)),
+url("https://commons.wikimedia.org/wiki/Special:FilePath/Registan_square_in_Samarkand.jpg?width=1920") center/cover}
+.hero:before{content:"";position:absolute;width:650px;height:650px;border-radius:50%;right:-250px;top:5%;background:#11a9e840;filter:blur(2px)}
+.hero-content{position:relative;z-index:2;padding-top:75px;max-width:900px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:1px solid #ffffff35;background:#ffffff13;border-radius:999px;font-size:13px;font-weight:800}
+.hero h1{font-size:clamp(54px,9vw,112px);line-height:.9;letter-spacing:-6px;margin:27px 0}
+.hero h1 span{display:block;color:#72d7ff}
+.hero p{max-width:760px;font-size:clamp(17px,2vw,22px);color:#e1f2fb}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{padding:14px 21px;border-radius:15px;font-weight:900;display:inline-flex;align-items:center;gap:8px;transition:.25s}
+.btn-main{background:white;color:#082941}.btn-main:hover{transform:translateY(-3px);box-shadow:0 15px 35px #0004}
+.btn-outline{border:1px solid #ffffff45;background:#ffffff12;color:white}.btn-outline:hover{background:#ffffff22}
+.scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:12px;opacity:.7}
+
+/* STATS */
+.stat-wrap{margin-top:-58px;position:relative;z-index:5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.stat{background:var(--surface);border:1px solid #dbe8ef;padding:26px;border-radius:22px;box-shadow:var(--shadow)}
+.dark .stat{border-color:#ffffff12}
+.stat strong{font-size:32px;display:block;color:var(--blue2)}.stat span{font-size:13px;color:var(--muted)}
+
+/* CARDS */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--surface);border:1px solid #dce9ef;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.3s}
+.dark .card{border-color:#ffffff10}
+.card:hover{transform:translateY(-8px)}
+.card-img{height:235px;position:relative;overflow:hidden}
+.card-img img{height:100%;transition:.5s}.card:hover img{transform:scale(1.06)}
+.card-body{padding:23px}.card-body h3{font-size:23px;margin-bottom:7px}.card-body p{color:var(--muted);font-size:14px}
+.num{position:absolute;left:15px;top:15px;background:#071f33cc;color:white;border:1px solid #ffffff30;padding:7px 11px;border-radius:12px;font-weight:900}
+
+/* HISTORY */
+.history{background:linear-gradient(120deg,#eaf7ff,#eefbf2)}
+.dark .history{background:linear-gradient(120deg,#0a2636,#09251c)}
+.timeline{position:relative;max-width:950px;margin:auto}
+.timeline:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(var(--blue),var(--green));transform:translateX(-50%)}
+.titem{width:50%;padding:12px 45px;position:relative}
+.titem:nth-child(odd){margin-left:0;text-align:right}.titem:nth-child(even){margin-left:50%}
+.tdot{position:absolute;top:26px;width:18px;height:18px;border-radius:50%;background:white;border:5px solid var(--blue);z-index:2}
+.titem:nth-child(odd) .tdot{right:-9px}.titem:nth-child(even) .tdot{left:-9px}
+.tbox{background:var(--surface);padding:21px;border-radius:20px;box-shadow:var(--shadow);border:1px solid #dce9ef}
+.tbox b{color:var(--blue2);font-size:18px}.tbox h3{margin:4px 0}.tbox p{font-size:14px;color:var(--muted)}
+
+/* CONSTITUTION */
+.const{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
+.const-photo{height:530px;border-radius:30px;overflow:hidden;box-shadow:var(--shadow)}
+.const-photo img{height:100%}
+.const-text{background:var(--surface);padding:38px;border-radius:30px;border:1px solid #dce9ef;box-shadow:var(--shadow)}
+.const-text .quote{font-size:24px;font-weight:850;line-height:1.3;margin:20px 0;padding-left:20px;border-left:4px solid var(--blue)}
+.const-text p{color:var(--muted)}
+
+/* VALUES */
+.values{background:#08283f;color:white;overflow:hidden}
+.values h2{color:white}.values .section-intro p{color:#bdd0dc}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.value{padding:27px;border-radius:22px;background:#ffffff0d;border:1px solid #ffffff18}
+.value-icon{font-size:34px;margin-bottom:12px}.value h3{font-size:20px}.value p{color:#b8ccd8;font-size:14px;margin-top:6px}
+
+/* FAMILY / YOUTH */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.feature{position:relative;min-height:500px;border-radius:30px;overflow:hidden;color:white}
+.feature img{position:absolute;inset:0;height:100%;filter:brightness(.57)}
+.feature:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 20%,#041b2df5)}
+.feature-content{position:absolute;z-index:2;left:30px;right:30px;bottom:30px}
+.feature-content h3{font-size:32px;line-height:1.05}.feature-content p{color:#d9eaf2;margin-top:8px}
+
+/* ACHIEVEMENTS */
+.achievement{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ach{background:var(--surface);padding:28px;border-radius:22px;border:1px solid #dce9ef;box-shadow:var(--shadow)}
+.ach strong{font-size:42px;color:var(--green);display:block}.ach h3{font-size:20px}.ach p{color:var(--muted);font-size:14px}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:13px}
+.gitem{border-radius:20px;overflow:hidden;cursor:pointer;position:relative}
+.gitem img{height:100%;transition:.4s}.gitem:hover img{transform:scale(1.08)}
+.gitem:nth-child(1){grid-column:span 2;grid-row:span 2}.gitem:nth-child(5){grid-column:span 2}
+.gitem:after{content:"🔍";position:absolute;right:14px;bottom:12px;background:#061e31cc;padding:8px;border-radius:10px}
+
+/* REGIONS */
+.region-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.region-tabs button{padding:10px 14px;border-radius:12px;background:var(--surface);color:var(--text);border:1px solid #d8e6ed;font-weight:800}
+.region-tabs button.active,.region-tabs button:hover{background:var(--blue2);color:white}
+.region-box{display:grid;grid-template-columns:1fr 1fr;gap:25px;background:var(--surface);padding:25px;border-radius:28px;box-shadow:var(--shadow)}
+.region-box img{height:340px;border-radius:20px}.region-info{padding:15px}.region-info h3{font-size:35px}.region-info p{color:var(--muted)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}.tag{padding:7px 10px;background:var(--surface2);border-radius:10px;font-size:12px;font-weight:800}
+
+/* INTERACTIVE */
+.pride{background:linear-gradient(135deg,#0878b8,#20aa61);color:white}
+.pride-box{max-width:900px;margin:auto;text-align:center}.pride h2{color:white}
+.form{display:flex;gap:9px;max-width:700px;margin:25px auto 0}.form input{flex:1;padding:16px;border:0;border-radius:14px;outline:0;font-size:15px}
+.form button{padding:0 22px;border-radius:14px;background:#fff;color:#0871ae;font-weight:900}
+.messages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px;text-align:left}
+.message{background:#ffffff17;border:1px solid #ffffff20;padding:17px;border-radius:17px}
+.message small{opacity:.7}
+
+/* PEACE ECO FUTURE */
+.icon-section{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.big-card{padding:32px;background:var(--surface);border-radius:25px;border:1px solid #dce9ef;box-shadow:var(--shadow)}
+.big-card .bigicon{font-size:48px}.big-card h3{font-size:25px;margin:10px 0}.big-card p{color:var(--muted)}
+.future{background:linear-gradient(130deg,#071e30,#0d4560);color:white}
+.future h2{color:white}.future p{color:#bfd6e1}
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.future-card{padding:27px;border-radius:22px;background:#ffffff0c;border:1px solid #ffffff1c}.future-card b{font-size:28px;color:#6cdbff}.future-card p{font-size:14px;margin-top:4px}
+
+/* AUDIO */
+.audio{position:fixed;right:20px;bottom:20px;z-index:900;background:var(--surface);color:var(--text);border:1px solid #dce9ef;border-radius:18px;padding:9px;box-shadow:var(--shadow);display:flex;align-items:center;gap:9px}
+.audio button{width:42px;height:42px;border-radius:13px;background:var(--blue2);color:white}.audio span{font-size:12px;font-weight:850;padding-right:7px}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:#000b;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}.modal img{max-width:1000px;max-height:85vh;border-radius:18px}.close{position:absolute;right:25px;top:20px;color:white;background:#ffffff20;width:45px;height:45px;border-radius:50%;font-size:25px}
+
+/* FOOTER */
+footer{background:#061b2c;color:#b8ceda;padding:50px 0}.foot{display:flex;justify-content:space-between;gap:30px}.foot strong{color:white;font-size:20px}.copy{margin-top:30px;padding-top:20px;border-top:1px solid #ffffff14;font-size:12px}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(25px);transition:.7s ease}.reveal.show{opacity:1;transform:none}
+@media(max-width:1000px){
+ .links{display:none}.menu-btn{display:block}.stats{grid-template-columns:repeat(2,1fr)}
+ .grid3,.value-grid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(3,1fr)}
+ .gallery .gitem:nth-child(1){grid-column:span 2}.const,.split,.region-box{grid-template-columns:1fr}
+ .achievement,.icon-section,.future-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+ section{padding:70px 0}.hero h1{letter-spacing:-3px}.stats{grid-template-columns:1fr}.grid3,.value-grid,.achievement,.icon-section,.future-grid{grid-template-columns:1fr}
+ .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}.gallery .gitem:nth-child(1){grid-column:span 2;grid-row:span 1}
+ .timeline:before{left:8px}.titem,.titem:nth-child(even){width:100%;margin-left:0;text-align:left;padding:10px 0 10px 32px}.titem .tdot,.titem:nth-child(odd) .tdot,.titem:nth-child(even) .tdot{left:0;right:auto}
+ .const-photo{height:340px}.form{flex-direction:column}.form button{height:50px}.messages{grid-template-columns:1fr}
+ .foot{display:block}.foot>div+div{margin-top:20px}.audio{right:10px;bottom:10px}
+}
+
+.image-source-link{display:inline-block;margin-top:8px;font-size:11px;color:var(--blue2);font-weight:800}
+.image-source-link:hover{text-decoration:underline}
+.card-body .image-source-link{margin-left:23px;margin-bottom:14px}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container nav">
+  <a href="#home" class="logo"><span class="flag"><div class="f1"></div><div class="f2"></div><div class="f3"></div></span> YAGONA VATAN</a>
+  <div class="links">
+   <a href="#tarix">Tarix</a><a href="#konstitutsiya">Konstitutsiya</a><a href="#qadriyat">Qadriyat</a>
+   <a href="#yoshlar">Yoshlar</a><a href="#meros">Meros</a><a href="#galereya">Galereya</a><a href="#viloyatlar">Viloyatlar</a>
+  </div>
+  <div class="nav-actions"><button class="icon-btn" id="theme">☾</button><button class="icon-btn menu-btn" onclick="alert('Menyu: Tarix • Konstitutsiya • Qadriyat • Yoshlar • Galereya • Viloyatlar')">☰</button></div>
+ </div>
+</header>
+
+<main id="home">
+<section class="hero">
+ <div class="container hero-content reveal">
+  <div class="badge">🇺🇿 O‘zbekiston — umumiy uyimiz</div>
+  <h1>Yagona Vatan<span>Yagona xalq</span></h1>
+  <p>Bir Vatan. Bir xalq. Bir kelajak. Turli millat va elatlarni yagona maqsad — tinch, farovon va taraqqiy etgan O‘zbekiston sari birlashtiradigan qadriyatlar haqida interaktiv loyiha.</p>
+  <div class="hero-buttons"><a href="#tarix" class="btn btn-main">Sayohatni boshlash ↓</a><a href="#galereya" class="btn btn-outline">📸 Foto galereya</a></div>
+ </div>
+ <div class="scroll">↓ PASTGA AYLANING</div>
+</section>
+
+<div class="container stat-wrap">
+ <div class="stats reveal">
+  <div class="stat"><strong>1</strong><span>Yagona Vatan — O‘zbekiston</span></div>
+  <div class="stat"><strong>∞</strong><span>Boy tarix va madaniy meros</span></div>
+  <div class="stat"><strong>100+</strong><span>Millat va elatlar hamjihatligi</span></div>
+  <div class="stat"><strong>1</strong><span>Umumiy kelajak va maqsad</span></div>
+ </div>
+</div>
+
+<section id="tarix">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">01 • Tarix</div><h2>O‘zbekiston tarixi</h2><p>Buyuk sivilizatsiyalar chorrahasida shakllangan yurtimiz tarixi ilm-fan, savdo, me’morchilik va madaniyatning ulkan izlarini qoldirgan.</p></div>
+  <div class="grid3">
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Registan_square_in_Samarkand.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a><span class="num">01</span></div><div class="card-body"><h3>Samarqand</h3><p>Registon, Mirzo Ulug‘bek merosi va Buyuk Ipak yo‘li tarixining muhim markazi.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kalyan%20Minaret%20in%20Bukhara.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a><span class="num">02</span></div><div class="card-body"><h3>Buxoro</h3><p>Ko‘p asrlik ilm, hunarmandchilik va islom me’morchiligining noyob markazlaridan biri.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Itchan%20Kala.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a><span class="num">03</span></div><div class="card-body"><h3>Xiva</h3><p>Ichan-Qal’a devorlari ortida saqlanib qolgan betakror tarixiy shahar.</p></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="history">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">02 • Vaqt jadvali</div><h2>Tarix sahifalaridan</h2><p>O‘zbekiston davlatchiligi va zamonaviy taraqqiyotining muhim bosqichlari.</p></div>
+  <div class="timeline">
+   <div class="titem reveal"><span class="tdot"></span><div class="tbox"><b>Qadimgi davr</b><h3>Buyuk Ipak yo‘li</h3><p>Markaziy Osiyo Sharq va G‘arbni bog‘lagan savdo va madaniy almashinuv hududiga aylandi.</p></div></div>
+   <div class="titem reveal"><span class="tdot"></span><div class="tbox"><b>IX–XII asrlar</b><h3>Ilm-fan uyg‘onishi</h3><p>Al-Xorazmiy, Al-Beruniy, Ibn Sino kabi allomalar jahon ilm-faniga ulkan hissa qo‘shdilar.</p></div></div>
+   <div class="titem reveal"><span class="tdot"></span><div class="tbox"><b>XIV–XV asrlar</b><h3>Temuriylar davri</h3><p>Samarqand yirik siyosiy, ilmiy va me’moriy markazlardan biriga aylandi.</p></div></div>
+   <div class="titem reveal"><span class="tdot"></span><div class="tbox"><b>1991-yil</b><h3>Mustaqillik</h3><p>O‘zbekiston davlat mustaqilligini e’lon qilib, yangi taraqqiyot yo‘lini boshladi.</p></div></div>
+   <div class="titem reveal"><span class="tdot"></span><div class="tbox"><b>Bugun</b><h3>Yangi imkoniyatlar</h3><p>Yoshlar, raqamli texnologiyalar, ta’lim va innovatsiyalar taraqqiyotning muhim yo‘nalishlaridir.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="konstitutsiya">
+ <div class="container const">
+  <div class="const-photo reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Constitution_of_Uzbekistan.jpg/1000px-Constitution_of_Uzbekistan.jpg" alt="O‘zbekiston Konstitutsiyasi" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Konstitutsiyasi%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+  <div class="const-text reveal"><div class="kicker">03 • Huquqiy qadriyatlar</div><h2>Konstitutsiya — huquq va erkinliklar kafolati</h2><div class="quote">“Biz, O‘zbekistonning yagona xalqi...”</div><p>Konstitutsiya inson qadr-qimmati, huquq va erkinliklari, qonun ustuvorligi hamda xalq farovonligi kabi fundamental qadriyatlarni mustahkamlaydi.</p><div class="tags"><span class="tag">⚖️ Qonun ustuvorligi</span><span class="tag">🫶 Inson qadri</span><span class="tag">🕊️ Erkinlik</span><span class="tag">🤝 Tenglik</span></div></div>
+ </div>
+</section>
+
+<section class="values" id="qadriyat">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker" style="color:#71d9ff">04 • Qadriyatlar</div><h2>Bizni birlashtiradigan kuch</h2><p>Vatanparvarlik — faqat so‘z emas. U kundalik hayotdagi hurmat, halollik, mehnat va mas’uliyatda namoyon bo‘ladi.</p></div>
+  <div class="value-grid">
+   <div class="value reveal"><div class="value-icon">🤝</div><h3>Birdamlik</h3><p>Umumiy maqsadlar yo‘lida birlashish.</p></div>
+   <div class="value reveal"><div class="value-icon">🕊️</div><h3>Tinchlik</h3><p>Osuda hayot va barqaror kelajak.</p></div>
+   <div class="value reveal"><div class="value-icon">❤️</div><h3>Vatanparvarlik</h3><p>Ona yurtga muhabbat va sadoqat.</p></div>
+   <div class="value reveal"><div class="value-icon">🌍</div><h3>Bag‘rikenglik</h3><p>Turli madaniyat va qarashlarga hurmat.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="oila">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">05 • Oila va jamiyat</div><h2>Mustahkam oila — mustahkam jamiyat</h2><p>Mehr, tarbiya, hurmat va mas’uliyat avvalo oilada shakllanadi. Sog‘lom oila jamiyatning tayanchidir.</p></div>
+  <div class="split">
+   <div class="feature reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uzbek%20girls%20viewing%20traditional%20suzani.jpg?width=1400" alt="O‘zbek oilasi" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbek%20oilasi%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a><div class="feature-content"><h3>Mehr va tarbiya</h3><p>Avloddan-avlodga o‘tadigan eng katta boylik — yaxshi tarbiya, hurmat va insoniylik.</p></div></div>
+   <div class="feature reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chorsu%20bazaar%20in%20Tashkent%2C%20Uzbekistan.jpg?width=1400" alt="O‘zbek milliy an'anasi" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbek%20milliy%20an%27anasi%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a><div class="feature-content"><h3>An’ana va avlodlar</h3><p>Milliy urf-odatlarimiz jamiyatdagi o‘zaro hurmat va mehr-oqibatni mustahkamlaydi.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="yoshlar" class="history">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">06 • Yoshlar va kelajak</div><h2>Kelajak — yoshlar qo‘lida</h2><p>Bilim, texnologiya, sport, san’at va tadbirkorlikda faol yoshlar mamlakatning yangi imkoniyatlarini yaratadi.</p></div>
+  <div class="achievement">
+   <div class="ach reveal"><strong>01</strong><h3>Ta’lim</h3><p>Bilimli avlod — barqaror taraqqiyotning poydevori.</p></div>
+   <div class="ach reveal"><strong>02</strong><h3>Innovatsiya</h3><p>Yangi g‘oyalar va texnologiyalar yangi imkoniyatlarni ochadi.</p></div>
+   <div class="ach reveal"><strong>03</strong><h3>Sport</h3><p>Matonat, intizom va sog‘lom turmush tarzi yoshlar kuchini oshiradi.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">07 • O‘zbekiston yutuqlari</div><h2>Yutuqlar — umumiy faxrimiz</h2><p>Ilm-fan, sport, madaniyat, turizm va tadbirkorlikdagi har bir ijobiy natija mamlakat rivojiga qo‘shilgan hissadir.</p></div>
+  <div class="achievement">
+   <div class="ach reveal"><strong>🏆</strong><h3>Sport</h3><p>Sportchilarimiz xalqaro musobaqalarda O‘zbekiston bayrog‘ini baland ko‘tarib kelmoqda.</p></div>
+   <div class="ach reveal"><strong>🔬</strong><h3>Ilm-fan</h3><p>Yangi avlod olimlari va tadqiqotchilar zamonaviy ilmiy yo‘nalishlarda faoliyat yuritmoqda.</p></div>
+   <div class="ach reveal"><strong>🌐</strong><h3>Turizm</h3><p>Tarixiy shaharlarimiz va tabiiy maskanlarimiz dunyo sayyohlarini jalb qilmoqda.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="meros">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">08 • Milliy meros</div><h2>Milliy qadriyat va madaniyat</h2><p>Atlas, adras, kulolchilik, zardo‘zlik, milliy musiqa va raqslar — xalqimizning o‘ziga xosligini aks ettiradi.</p></div>
+  <div class="grid3">
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uzbek%20girls%20viewing%20traditional%20suzani.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>🎨 Hunarmandchilik</h3><p>Qo‘l mehnati bilan yaratiladigan nafis naqshlar va amaliy san’at namunalar.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Xivadagi%20an%E2%80%99anaviy%20musiqa%20ansambli.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>💃 Milliy raqs</h3><p>Harakat, musiqa va libos uyg‘unligida xalq ruhiyati aks etadi.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9F%D0%BB%D0%BE%D0%B2%20%D0%BD%D0%B0%20%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%20%D0%A7%D0%BE%D1%80%D1%81%D1%83%20%D0%B2%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82%D0%B5%2C%202026-05-02.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>🍚 Milliy taomlar</h3><p>Palov, somsa va boshqa taomlar mehmondo‘stlik an’analarining bir qismidir.</p></div></article>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">09 • Go‘zal maskanlar</div><h2>O‘zbekiston — rang-barang diyor</h2><p>Qadimiy shaharlar, tog‘lar, cho‘llar va yashil vodiylar yurtimiz tabiatining betakror manzarasini yaratadi.</p></div>
+  <div class="grid3">
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Registan_square_in_Samarkand.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>🏛️ Samarqand</h3><p>Registon va qadimiy me’morchilik durdonalari.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Itchan%20Kala.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>🏰 Xiva</h3><p>Ichan-Qal’a — tarixiy shahar muhitining noyob namunasi.</p></div></article>
+   <article class="card reveal"><div class="card-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uzbekistan%20Chimgan%20Mountains.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div><div class="card-body"><h3>🏔️ Chimgan</h3><p>Chiroyli tog‘ manzaralari va faol dam olish maskani.</p></div></article>
+  </div>
+ </div>
+</section>
+
+<section id="galereya" class="history">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">10 • Foto galereya</div><h2>Vatan manzaralari</h2><p>O‘zbekistonning tarixiy obidalari, tabiati, bayramlari va milliy hayotidan ilhomlantiruvchi kadrlar.</p></div>
+  <div class="gallery">
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Registan_square_in_Samarkand.jpg?width=1400" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kalyan%20Minaret%20in%20Bukhara.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Itchan%20Kala.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uzbekistan%20Chimgan%20Mountains.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Uzbek%20girls%20viewing%20traditional%20suzani.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+   <div class="gitem reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9F%D0%BB%D0%BE%D0%B2%20%D0%BD%D0%B0%20%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%20%D0%A7%D0%BE%D1%80%D1%81%D1%83%20%D0%B2%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82%D0%B5%2C%202026-05-02.jpg?width=1100" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+  </div>
+ </div>
+</section>
+
+<section id="viloyatlar">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">11 • Hududlar</div><h2>Viloyatlar bo‘ylab sayohat</h2><p>Har bir hudud — o‘z tarixi, tabiati, taomlari va an’analariga ega yagona O‘zbekistonning bir bo‘lagi.</p></div>
+  <div class="region-tabs">
+   <button class="active" onclick="region('toshkent',this)">Toshkent</button><button onclick="region('samarqand',this)">Samarqand</button><button onclick="region('buxoro',this)">Buxoro</button><button onclick="region('xiva',this)">Xorazm</button><button onclick="region('fargona',this)">Farg‘ona</button><button onclick="region('qashqadaryo',this)">Qashqadaryo</button>
+  </div>
+  <div class="region-box reveal">
+   <img id="regionImg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Chorsu%20bazaar%20in%20Tashkent%2C%20Uzbekistan.jpg?width=1200" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a>
+   <div class="region-info"><div class="kicker">Hudud</div><h3 id="regionTitle">Toshkent</h3><p id="regionText">O‘zbekiston poytaxti — zamonaviy shahar hayoti, tarixiy maskanlar, bog‘lar va yangi bunyodkorlik uyg‘unlashgan hudud.</p><div class="tags" id="regionTags"><span class="tag">🏙️ Poytaxt</span><span class="tag">🌳 Bog‘lar</span><span class="tag">🏛️ Tarix</span></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="pride">
+ <div class="container pride-box">
+  <div class="kicker" style="color:#b8edff">12 • Interaktiv devor</div><h2>“Men Vatanim bilan faxrlanaman”</h2>
+  <p>O‘zbekiston siz uchun nimani anglatadi? Fikringizni yozing — u sahifada ko‘rinadi.</p>
+  <div class="form"><input id="prideInput" placeholder="Masalan: Men Vatanim bilan tinchligi uchun faxrlanaman..."><button onclick="addPride()">Yuborish ❤️</button></div>
+  <div class="messages" id="messages"></div>
+ </div>
+</section>
+
+<section>
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">13 • Tinchlik</div><h2>Tinchlik va bag‘rikenglik</h2><p>Turli madaniyatlar, tillar va an’analar o‘zaro hurmat asosida bir makonda yashashi jamiyat boyligidir.</p></div>
+  <div class="icon-section">
+   <div class="big-card reveal"><div class="bigicon">🕊️</div><h3>Tinchlik</h3><p>Osuda hayot, xavfsizlik va barqarorlik har bir inson uchun qadrlidir.</p></div>
+   <div class="big-card reveal"><div class="bigicon">🌍</div><h3>Bag‘rikenglik</h3><p>Insonlarning turli qarashlari va madaniyatlariga hurmat bilan munosabatda bo‘lish.</p></div>
+   <div class="big-card reveal"><div class="bigicon">🤝</div><h3>Hamjihatlik</h3><p>Muammolarni birgalikda hal qilish va bir-birini qo‘llab-quvvatlash.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker">14 • Ekologiya</div><h2>Obod Vatan — yashil Vatan</h2><p>Tabiatni asrash, suv va energiyadan oqilona foydalanish hamda shaharlarni ko‘kalamzorlashtirish kelajak avlod oldidagi mas’uliyatdir.</p></div>
+  <div class="icon-section">
+   <div class="big-card reveal"><div class="bigicon">🌱</div><h3>Ko‘chat ekish</h3><p>Har bir daraxt — toza havo va kelajak uchun qoldirilgan yashil meros.</p></div>
+   <div class="big-card reveal"><div class="bigicon">💧</div><h3>Suvni asrash</h3><p>Suv resurslaridan tejamkor foydalanish ekologik barqarorlikning muhim qismidir.</p></div>
+   <div class="big-card reveal"><div class="bigicon">♻️</div><h3>Toza muhit</h3><p>Chiqindilarni kamaytirish va qayta ishlash madaniyatini rivojlantirish.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="future">
+ <div class="container">
+  <div class="section-intro reveal"><div class="kicker" style="color:#6bd8ff">15 • Kelajak</div><h2>Kelajak O‘zbekiston</h2><p>Yangi avlodning bilimi, tashabbusi va mehnati bilan yanada kuchli, zamonaviy va farovon O‘zbekistonni barpo etish g‘oyasi.</p></div>
+  <div class="future-grid">
+   <div class="future-card reveal"><b>01</b><h3>Raqamli taraqqiyot</h3><p>Texnologiyalar va raqamli xizmatlar yangi imkoniyatlarni kengaytiradi.</p></div>
+   <div class="future-card reveal"><b>02</b><h3>Zamonaviy ta’lim</h3><p>Bilim va ijodkorlikka asoslangan ta’lim kelajak mutaxassislarini tayyorlaydi.</p></div>
+   <div class="future-card reveal"><b>03</b><h3>Yashil iqtisodiyot</h3><p>Tabiatga mas’uliyatli va samarali rivojlanish yo‘li.</p></div>
+  </div>
+ </div>
+</section>
+</main>
+
+<div class="audio"><button id="musicBtn">▶</button><span id="musicText">Vatan kayfiyati</span><audio id="music" loop preload="none"><source src="https://cdn.pixabay.com/audio/2022/10/30/audio_9461a8d0a5.mp3" type="audio/mpeg"></audio></div>
+
+<div class="modal" id="modal"><button class="close" onclick="closeModal()">×</button><img id="modalImg" loading="lazy" referrerpolicy="no-referrer"><a class="image-source-link" href="https://www.google.com/search?tbm=isch&q=O%E2%80%98zbekiston%20Uzbekistan" target="_blank" rel="noopener">🔎 Google rasmlarida ko‘rish</a></div>
+
+<footer>
+ <div class="container">
+  <div class="foot"><div><strong>🇺🇿 Yagona Vatan — Yagona Xalq</strong><br>Vatan • Tinchlik • Birdamlik • Taraqqiyot</div><div>O‘zbekiston — umumiy uyimiz.</div></div>
+  <div class="copy">© 2026 • Ta’limiy va madaniy loyiha. Rasmlar: Wikimedia Commons / Google Images qidiruv havolalari.</div>
+ </div>
+</footer>
+
+<script>
+/* SCROLL ANIMATION */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
+
+/* DARK / LIGHT */
+const theme=document.getElementById('theme');
+if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');theme.textContent='☀'}
+theme.onclick=()=>{
+ document.body.classList.toggle('dark');
+ const d=document.body.classList.contains('dark');
+ localStorage.setItem('theme',d?'dark':'light');theme.textContent=d?'☀':'☾';
+};
+
+/* GALLERY MODAL */
+document.querySelectorAll('img').forEach(img=>img.ondblclick=()=>window.open(img.src,'_blank'));
+document.querySelectorAll('.gitem img').forEach(img=>img.onclick=()=>{
+ document.getElementById('modalImg').src=img.src;
+ document.getElementById('modal').classList.add('open');
+});
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
+
+/* REGION SWITCHER */
+const regions={
+ toshkent:{title:'Toshkent',text:'O‘zbekiston poytaxti — zamonaviy shahar hayoti, tarixiy maskanlar, bog‘lar va yangi bunyodkorlik uyg‘unlashgan hudud.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Chorsu%20bazaar%20in%20Tashkent%2C%20Uzbekistan.jpg?width=1200',tags:['🏙️ Poytaxt','🌳 Bog‘lar','🏛️ Tarix']},
+ samarqand:{title:'Samarqand',text:'Movarounnahr tarixining buyuk markazi. Registon, Shohi Zinda va boshqa obidalar shaharni dunyoga mashhur qilgan.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Registan_square_in_Samarkand.jpg?width=1200',tags:['🏛️ Registon','📚 Ilm-fan','🌏 Turizm']},
+ buxoro:{title:'Buxoro',text:'Ming yillik tarix, qadimiy madrasalar, minoralar va hunarmandchilik an’analari bilan mashhur shahar.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Kalyan%20Minaret%20in%20Bukhara.jpg?width=1200',tags:['🕌 Minorai Kalon','🎨 Hunarmandchilik','📜 Tarix']},
+ xiva:{title:'Xorazm',text:'Ichan-Qal’a, qadimiy qal’alar va Xorazmning o‘ziga xos madaniy merosi bilan ajralib turadi.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Itchan%20Kala.jpg?width=1200',tags:['🏰 Ichan-Qal’a','🎭 Madaniyat','📜 Xorazm tarixi']},
+ fargona:{title:'Farg‘ona',text:'Serhosil vodiysi, hunarmandchiligi, atlas-adraslari va go‘zal tabiati bilan mashhur hudud.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Fergana%20valley.jpg?width=1200',tags:['🌿 Vodiy','🧵 Atlas-adras','🎨 Hunar']},
+ qashqadaryo:{title:'Qashqadaryo',text:'Qadimiy vohalar, tog‘lar va tarixiy yodgorliklari bilan janubimizning muhim hududlaridan biri.',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ak-Saray%20Palace%20-%2055474295811.jpg?width=1200',tags:['🏛️ Shahrisabz','⛰️ Tog‘lar','📜 Meros']}
+};
+function region(key,btn){
+ document.querySelectorAll('.region-tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ const r=regions[key];document.getElementById('regionTitle').textContent=r.title;document.getElementById('regionText').textContent=r.text;document.getElementById('regionImg').src=r.img;
+ document.getElementById('regionTags').innerHTML=r.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+}
+
+/* PRIDE WALL */
+const defaultMessages=[
+ ['Aziza','Men Vatanimning tinchligi va go‘zal tabiati bilan faxrlanaman. 🇺🇿'],
+ ['Muhammad','Bizning eng katta boyligimiz — xalqimizning birdamligi. 🤝'],
+ ['Dilshod','Tariximiz, ajdodlarimiz va kelajagimiz bilan faxrlanaman! ❤️']
+];
+let messages=JSON.parse(localStorage.getItem('prideMessages')||'null')||defaultMessages;
+function renderMessages(){
+ document.getElementById('messages').innerHTML=messages.map(x=>`<div class="message">“${escapeHtml(x[1])}”<br><small>— ${escapeHtml(x[0])}</small></div>`).join('');
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function addPride(){
+ const input=document.getElementById('prideInput');let text=input.value.trim();if(!text)return;
+ messages.unshift(['Mehmon',text]);messages=messages.slice(0,6);localStorage.setItem('prideMessages',JSON.stringify(messages));input.value='';renderMessages();
+}
+renderMessages();
+
+/* MUSIC */
+const audio=document.getElementById('music'),musicBtn=document.getElementById('musicBtn'),musicText=document.getElementById('musicText');
+musicBtn.onclick=()=>{
+ if(audio.paused){audio.play().then(()=>{musicBtn.textContent='⏸';musicText.textContent='Musiqa ijro etilmoqda'}).catch(()=>alert('Musiqani ijro etish uchun brauzer ruxsatini bering.'))}
+ else{audio.pause();musicBtn.textContent='▶';musicText.textContent='Vatan kayfiyati'}
+};
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
